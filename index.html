@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+	  	<meta name="description" content="Postfix Calculator">
+	  	<meta name="keywords" content="HTML,CSS,XML,JavaScript, Postfix, RPN">
+	  	<meta name="author" content="Andrew Hall">
+	  	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Postfix Calculator</title>
+		<link rel="icon" href="favicon.ico">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		
+	</head>
+	<body>
+		<main role="main" class="container">
+			<div class="panel">
+				<h1>Postfix Calculator</h1>
+				<p>This utility converts an infix expression to postfix using the shunting yard algorithm and evaluates the postfix to yield a result</p>
+				<p>Uses an expression lexar and stack data type implemented in javascript</p>
+			</div>
+			<div class = "row">
+				<div class="col-sm-3">
+					<label for="infix">Infix Expression</label>
+				</div>
+				<div class="col-sm-6">
+					<input type="text" placeholder="Expression" id="infix" name="infix" class="form-control">
+				</div>
+				<div class="col-sm-3">
+					<button type="button" id="infixtopostfix" class="btn btn-primary btn-block">To Postfix</button>
+				</div>
+			</div>
+			<p></p>
+			<div class = "row">
+				<div class="col-sm-3">
+					<label for="postfix">Postfix Expression</label>
+				</div>
+				<div class="col-sm-6">
+					<input type="text" placeholder="Expression" id="postfix" name="postfix" class="form-control" value = "15 7 1 1 + - / 3 * 2 1 1 + - +">
+				</div>
+				<div class="col-sm-3"> 
+					<button type="button" id="postfixtoinfix" class="btn btn-primary btn-block">To Infix</button>
+				</div>
+			</div>
+			<p></p>
+			<div class="row">
+				<div class="col-sm-3">
+					<label for="result">Result</label>
+				</div>
+				<div class="col-sm-9">
+					<p id="result">Not Evaluated</p>
+				</div>		
+			</div>	
+		</main>
+
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    	<script type="text/javascript" src="js/stack.js"></script>
+		<script type="text/javascript" src="js/lexar.js"></script>
+    	
+    	<script>
+        	$("#infixtopostfix").click(function(){
+            	 
+           	});
+
+        	$("#postfixtoinfix").click(function(){
+            	var texttoParse = $("#postfix").val();
+            	var tokens = texttoParse.split(" "); 
+        		var expressionStack = new stack();
+        		var lex = new lexar();
+        		
+        		for(i=0; i < tokens.length; i++){
+ 					if(lex.isOperand(tokens[i])) {
+ 						expressionStack.push(tokens[i]);
+ 					}
+ 					else{
+	 					if(lex.isOperator(tokens[i])) {
+	 						if(expressionStack.length() >= 2){
+	 							var v1 = expressionStack.pop();
+	 							var v2 = expressionStack.pop();
+	 							var result = eval(v1 + tokens[i] + v2);
+	 							expressionStack.push(result);
+	 						}
+	 					}
+	 				}	
+        		}
+        		if(expressionStack.length() == 1)
+        			$("#result").text(expressionStack.pop());
+        		else
+        			$("#result").text("Syntax Error in Expression");
+
+
+           	});
+    	</script>
+
+	</body>
+
+</html>
+
