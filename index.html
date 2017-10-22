@@ -76,8 +76,8 @@
  					else{
 	 					if(lex.isOperator(tokens[i])) {
 	 						if(expressionStack.length() >= 2){
-	 							var v1 = expressionStack.pop();
 	 							var v2 = expressionStack.pop();
+	 							var v1 = expressionStack.pop();
 	 							var result = eval(v1 + tokens[i] + v2);
 	 							expressionStack.push(result);
 	 						}
