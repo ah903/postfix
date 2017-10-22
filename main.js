@@ -16,10 +16,18 @@ require.config({
     	"popper": "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min",
     	"bootstrap": "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min",
     	"lexar": "js/lexar",
-    	"stack": "js/stack"
+    	"stack": "js/stack",
+        "stack-tests": "js/tests/stack-tests",
+        "lexar-tests": "js/tests/lexar-tests",
+
 
   	}
 });
+
+require(["jquery", "stack-tests", "lexar-tests"],function($, stack, lexar){
+    
+ 
+})
 
 /////////////////////////////////////////////////////////////////////////////////
 // Event Handlers for the Page Using JQuery Dependency Injected via RequireJS

@@ -34,6 +34,7 @@ define(["stack"], function(stack) {
 						var v2 = expressionStack.pop();
 						var v1 = expressionStack.pop();
 						var ev = v1 + tokens[i] + v2;
+						if(tokens[i]=="^") ev = "Math.pow(v1,v2)"
 						var result = eval(ev);
 						logEval(ev,result);
 						expressionStack.push(result);
